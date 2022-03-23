@@ -1,15 +1,18 @@
 package yabomonkey.example.tasktimer
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
+import com.google.android.material.snackbar.Snackbar
 import yabomonkey.example.tasktimer.databinding.ActivityMainBinding
+
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
 
@@ -23,6 +26,26 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        val appDatabase = AppDatabase.getInstance(this)
+        val db = appDatabase.readableDatabase
+        val cursor = db.rawQuery("SELECT * FROM Tasks", null)
+
+        Log.d(TAG, "********************************")
+        cursor.use {
+            while (it.moveToNext()) {
+                // Cycle through all the records
+                with(cursor) {
+                    val id = getLong(0)
+                    val name = getString(1)
+                    val description = getString(2)
+                    val sortOrder = getString(3)
+                    val result = "ID: $id. Name: $name. Description: $description. Sort Order: $sortOrder"
+                    Log.d(TAG, "onCreate: readhing data $result")
+                }
+            }
+        }
+        Log.d(TAG, "********************************")
 
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         appBarConfiguration = AppBarConfiguration(navController.graph)
