@@ -26,10 +26,10 @@ internal class AppDatabase private constructor(context: Context): SQLiteOpenHelp
         // CREATE TABLE Tasks (_id INTEGER PRIMARY KEY NOT NULL, Name TEXT NOT NULL, Description TEXT, SortOrder INTEGER);
         Log.d(TAG, "onCreate: Starts")
         val sSQL = """CREATE TABLE ${TasksContract.TABLE_NAME} (
-            |${TasksContract.Columns.ID} INTEGER PRIMARY KEY NOT NULL,
-            |${TasksContract.Columns.TASK_NAME} TEXT NOT NULL,
-            |${TasksContract.Columns.TASK_DESCRIPTION} TEXT,
-            |${TasksContract.Columns.TASK_SORT_ORDER} INTEGER);""".replaceIndent(" ")
+            ${TasksContract.Columns.ID} INTEGER PRIMARY KEY NOT NULL,
+            ${TasksContract.Columns.TASK_NAME} TEXT NOT NULL,
+            ${TasksContract.Columns.TASK_DESCRIPTION} TEXT,
+            ${TasksContract.Columns.TASK_SORT_ORDER} INTEGER);""".replaceIndent(" ")
         Log.d(TAG, sSQL)
         db.execSQL(sSQL)
     }
