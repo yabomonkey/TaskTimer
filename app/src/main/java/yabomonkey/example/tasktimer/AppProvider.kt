@@ -2,8 +2,10 @@ package yabomonkey.example.tasktimer
 
 import android.content.ContentProvider
 import android.content.ContentValues
+import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import android.util.Log
 
 /**
  * Provider for the TaskTimer app. This is the only class that knows about [AppDatabase].
@@ -25,6 +27,15 @@ private const val TASK_DURATION_ID = 401
 val CONTENT_AUTHORITY_URI: Uri = Uri.parse("content://$CONTENT_AUTHORITY")
 
 class AppProvider : ContentProvider() {
+
+    private val uriMatcher by lazy { buildUriMatcher() }
+
+    private fun buildUriMatcher(): UriMatcher {
+        Log.d(TAG, "buildUriMatcher starts")
+        val matcher = UriMatcher(UriMatcher.NO_MATCH)
+
+        return matcher
+    }
 
     override fun onCreate(): Boolean {
         TODO("Not yet implemented")
